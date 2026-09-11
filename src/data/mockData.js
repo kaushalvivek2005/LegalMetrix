@@ -1,0 +1,457 @@
+// LegalMetrix - Department of Consumer Affairs (DoCA)
+// Realistic Indian Mock Data for SIH 2026 Live Presentation
+
+export const INITIAL_INSTRUMENTS = [
+  {
+    id: "LM-INST-2026-00124",
+    name: "Electronic Bench Scale 300kg",
+    type: "Commercial Weighing",
+    category: "Non-Automatic Weighing Instrument (NAWI)",
+    manufacturer: "Avery Berkel",
+    model: "FX50 Series",
+    serialNumber: "AV-99281-26",
+    capacity: "300 kg (e = 50g)",
+    accuracyClass: "Class III (Medium)",
+    businessName: "Shree Balaji Weighing Solutions",
+    location: "Connaught Place Hub, Delhi",
+    address: "Shop 14, Block B, Connaught Place, New Delhi - 110001",
+    previousCertificateNumber: "CERT-2025-DL-8821",
+    previousVerificationDate: "2025-02-14",
+    expiryDate: "2026-02-13",
+    status: "Inspection Due",
+    certificateId: "LM-CERT-2025-00098"
+  },
+  {
+    id: "LM-INST-2026-00125",
+    name: "Coriolis Mass Flow Meter (Fuel)",
+    type: "Fuel Dispenser",
+    category: "Capacity Measure / Flow Meter",
+    manufacturer: "Emerson Micro Motion",
+    model: "F-Series 250",
+    serialNumber: "EM-44102-25",
+    capacity: "500 L/min",
+    accuracyClass: "Class 0.5",
+    businessName: "Bharat Agro Traders",
+    location: "Andheri Terminal, Mumbai",
+    address: "Plot 88, MIDC Industrial Area, Andheri East, Mumbai - 400093",
+    previousCertificateNumber: "CERT-2025-MH-4401",
+    previousVerificationDate: "2025-01-20",
+    expiryDate: "2026-01-19",
+    status: "Expired",
+    certificateId: "LM-CERT-2025-00041"
+  },
+  {
+    id: "LM-INST-2026-00126",
+    name: "Heavy Industrial Rail Weighbridge 100t",
+    type: "Weighbridge",
+    category: "Automatic Weighing Instrument (AWI)",
+    manufacturer: "Mettler Toledo",
+    model: "RW-100t Pitless",
+    serialNumber: "MT-88219-26",
+    capacity: "100 Tonnes (e = 10kg)",
+    accuracyClass: "Class III (Medium)",
+    businessName: "Eastern Industrial Weighing",
+    location: "Dhanbad Coal Siding, Jharkhand",
+    address: "Siding Area #4, Katras Road, Dhanbad - 826001",
+    previousCertificateNumber: "CERT-2025-JH-9912",
+    previousVerificationDate: "2025-03-10",
+    expiryDate: "2026-03-09",
+    status: "Verified & Active",
+    certificateId: "LM-CERT-2025-00114"
+  },
+  {
+    id: "LM-INST-2026-00127",
+    name: "Retail Counter Scale 30kg",
+    type: "Counter Scale",
+    category: "Non-Automatic Weighing Instrument (NAWI)",
+    manufacturer: "Essae-Teraoka",
+    model: "DS-252 Price Computing",
+    serialNumber: "ES-10294-26",
+    capacity: "30 kg (e = 5g)",
+    accuracyClass: "Class III (Medium)",
+    businessName: "Maa Enterprises",
+    location: "Main Market, Ranchi, Jharkhand",
+    address: "24 Club Road, Ranchi - 834001",
+    previousCertificateNumber: "CERT-2025-JH-3310",
+    previousVerificationDate: "2025-04-18",
+    expiryDate: "2026-04-17",
+    status: "Verified & Active",
+    certificateId: "LM-CERT-2025-00142"
+  },
+  {
+    id: "LM-INST-2026-00128",
+    name: "High Precision Balance 500g",
+    type: "Measuring Instrument",
+    category: "Precision Laboratory Scale",
+    manufacturer: "Sartorius",
+    model: "Entris II",
+    serialNumber: "SAR-67120-25",
+    capacity: "500 g (e = 0.001g)",
+    accuracyClass: "Class I (Special)",
+    businessName: "Shree Balaji Weighing Solutions",
+    location: "Jamshedpur Metallurgy Lab",
+    address: "Bistupur Industrial Area, Jamshedpur - 831001",
+    previousCertificateNumber: "CERT-2025-JH-7761",
+    previousVerificationDate: "2025-05-12",
+    expiryDate: "2026-05-11",
+    status: "Verified & Active",
+    certificateId: "LM-CERT-2025-00188"
+  }
+];
+
+export const INITIAL_APPLICATIONS = [
+  {
+    id: "LM-APP-2026-00421",
+    instrumentId: "LM-INST-2026-00124",
+    instrumentName: "Electronic Bench Scale 300kg",
+    instrumentType: "Commercial Weighing",
+    verificationType: "Periodic Re-verification",
+    businessName: "Shree Balaji Weighing Solutions",
+    jurisdiction: "Dhanbad / Jharkhand",
+    location: "Connaught Place Hub, Delhi",
+    submittedDate: "2026-02-18",
+    status: "Inspection Scheduled",
+    assignedOfficer: "Rajesh Kumar",
+    officerRole: "LMO",
+    officerId: "LMO-DL-04",
+    scheduledDate: "2026-02-21",
+    scheduledTime: "10:30 AM",
+    feeAmount: 1000,
+    feeStatus: "Paid",
+    timeline: [
+      { step: "Application Submitted", date: "18 Feb 2026, 10:15 AM", completed: true, actor: "Business User" },
+      { step: "Document Validation", date: "18 Feb 2026, 02:30 PM", completed: true, actor: "Admin Verification Cell" },
+      { step: "Officer Assignment", date: "19 Feb 2026, 11:00 AM", completed: true, actor: "GATC Smart Scheduler" },
+      { step: "Inspection Scheduled", date: "20 Feb 2026, 09:00 AM", completed: true, actor: "Rajesh Kumar (LMO)" },
+      { step: "Field Inspection", date: "Pending Field Audit", completed: false, actor: "LMO On-Site" },
+      { step: "Verification Decision", date: "Awaiting", completed: false, actor: "LMO / Controller" },
+      { step: "Certificate Issuance", date: "Awaiting", completed: false, actor: "Digital Stamping System" }
+    ]
+  },
+  {
+    id: "LM-APP-2026-00422",
+    instrumentId: "LM-INST-2026-00125",
+    instrumentName: "Coriolis Mass Flow Meter (Fuel)",
+    instrumentType: "Fuel Dispenser",
+    verificationType: "Re-verification",
+    businessName: "Bharat Agro Traders",
+    jurisdiction: "Mumbai / Maharashtra",
+    location: "Andheri Terminal, Mumbai",
+    submittedDate: "2026-02-19",
+    status: "Under Review",
+    assignedOfficer: "Sunita Sharma",
+    officerRole: "LMO",
+    officerId: "LMO-MH-02",
+    scheduledDate: "2026-02-23",
+    scheduledTime: "02:00 PM",
+    feeAmount: 1500,
+    feeStatus: "Paid",
+    timeline: [
+      { step: "Application Submitted", date: "19 Feb 2026, 09:40 AM", completed: true, actor: "Business User" },
+      { step: "Document Validation", date: "19 Feb 2026, 04:15 PM", completed: true, actor: "Admin Verification Cell" },
+      { step: "Officer Assignment", date: "20 Feb 2026, 10:00 AM", completed: true, actor: "Admin Officer" },
+      { step: "Inspection Scheduled", date: "Pending", completed: false, actor: "Sunita Sharma (LMO)" },
+      { step: "Field Inspection", date: "Awaiting", completed: false, actor: "LMO On-Site" },
+      { step: "Verification Decision", date: "Awaiting", completed: false, actor: "LMO" },
+      { step: "Certificate Issuance", date: "Awaiting", completed: false, actor: "System" }
+    ]
+  },
+  {
+    id: "LM-APP-2026-00420",
+    instrumentId: "LM-INST-2026-00126",
+    instrumentName: "Heavy Industrial Rail Weighbridge 100t",
+    instrumentType: "Weighbridge",
+    verificationType: "Periodic Re-verification",
+    businessName: "Eastern Industrial Weighing",
+    jurisdiction: "Dhanbad / Jharkhand",
+    location: "Dhanbad Coal Siding, Jharkhand",
+    submittedDate: "2026-02-10",
+    status: "Approved",
+    assignedOfficer: "A. Kumar",
+    officerRole: "LMO",
+    officerId: "LMO-JH-01",
+    scheduledDate: "2026-02-14",
+    scheduledTime: "11:00 AM",
+    feeAmount: 2500,
+    feeStatus: "Paid",
+    certificateId: "LM-CERT-2026-00123",
+    timeline: [
+      { step: "Application Submitted", date: "10 Feb 2026, 10:00 AM", completed: true, actor: "Business User" },
+      { step: "Document Validation", date: "10 Feb 2026, 03:00 PM", completed: true, actor: "Admin Cell" },
+      { step: "Officer Assignment", date: "11 Feb 2026, 10:30 AM", completed: true, actor: "Admin" },
+      { step: "Inspection Scheduled", date: "12 Feb 2026, 09:00 AM", completed: true, actor: "A. Kumar (LMO)" },
+      { step: "Field Inspection", date: "14 Feb 2026, 11:45 AM", completed: true, actor: "A. Kumar (LMO)" },
+      { step: "Verification Decision", date: "14 Feb 2026, 01:20 PM - PASS", completed: true, actor: "A. Kumar (LMO)" },
+      { step: "Certificate Issuance", date: "14 Feb 2026, 01:25 PM - GENERATED", completed: true, actor: "LegalMetrix Engine" }
+    ]
+  },
+  {
+    id: "LM-APP-2026-00423",
+    instrumentId: "LM-INST-2026-00127",
+    instrumentName: "Retail Counter Scale 30kg",
+    instrumentType: "Counter Scale",
+    verificationType: "Initial Verification",
+    businessName: "Maa Enterprises",
+    jurisdiction: "Ranchi / Jharkhand",
+    location: "Main Market, Ranchi, Jharkhand",
+    submittedDate: "2026-02-20",
+    status: "Submitted",
+    assignedOfficer: "Unassigned",
+    officerRole: "",
+    officerId: "",
+    scheduledDate: "",
+    scheduledTime: "",
+    feeAmount: 1000,
+    feeStatus: "Paid",
+    timeline: [
+      { step: "Application Submitted", date: "20 Feb 2026, 11:30 AM", completed: true, actor: "Business User" },
+      { step: "Document Validation", date: "In Progress", completed: false, actor: "Admin Verification Cell" },
+      { step: "Officer Assignment", date: "Awaiting", completed: false, actor: "Smart Scheduler" },
+      { step: "Inspection Scheduled", date: "Awaiting", completed: false, actor: "LMO" },
+      { step: "Field Inspection", date: "Awaiting", completed: false, actor: "LMO" },
+      { step: "Verification Decision", date: "Awaiting", completed: false, actor: "LMO" },
+      { step: "Certificate Issuance", date: "Awaiting", completed: false, actor: "System" }
+    ]
+  }
+];
+
+export const INITIAL_CERTIFICATES = [
+  {
+    certificateNumber: "LM-CERT-2026-00123",
+    instrumentId: "LM-INST-2026-00126",
+    instrumentName: "Heavy Industrial Rail Weighbridge 100t",
+    instrumentType: "Weighbridge",
+    manufacturer: "Mettler Toledo",
+    model: "RW-100t Pitless",
+    serialNumber: "MT-88219-26",
+    capacity: "100 Tonnes (e = 10kg)",
+    accuracyClass: "Class III (Medium)",
+    businessName: "Eastern Industrial Weighing",
+    location: "Dhanbad Coal Siding, Jharkhand",
+    verificationDate: "2026-02-14",
+    validUntil: "2027-02-13",
+    verifiedBy: "A. Kumar (LMO-JH-01)",
+    verificationCentre: "Dhanbad District Legal Metrology Office",
+    status: "VERIFIED & ACTIVE",
+    sealHash: "8f9b2c34a110e58c9921f66d4821ea9bc8921f0081d77209",
+    securityHash: "DOCA-LM-SHA256-49102830",
+    qrPayload: "https://legalmetrix.gov.in/verify?cert=LM-CERT-2026-00123",
+    isDemo: true
+  },
+  {
+    certificateNumber: "LM-CERT-2025-00142",
+    instrumentId: "LM-INST-2026-00127",
+    instrumentName: "Retail Counter Scale 30kg",
+    instrumentType: "Counter Scale",
+    manufacturer: "Essae-Teraoka",
+    model: "DS-252 Price Computing",
+    serialNumber: "ES-10294-26",
+    capacity: "30 kg (e = 5g)",
+    accuracyClass: "Class III (Medium)",
+    businessName: "Maa Enterprises",
+    location: "Main Market, Ranchi, Jharkhand",
+    verificationDate: "2025-04-18",
+    validUntil: "2026-04-17",
+    verifiedBy: "B. N. Sahay (LMO-JH-03)",
+    verificationCentre: "Ranchi Urban Metrology Laboratory",
+    status: "VERIFIED & ACTIVE",
+    sealHash: "172ea8c92b9381fccb291823ab4910ef74892bc194a02198",
+    securityHash: "DOCA-LM-SHA256-11829302",
+    qrPayload: "https://legalmetrix.gov.in/verify?cert=LM-CERT-2025-00142",
+    isDemo: true
+  },
+  {
+    certificateNumber: "LM-CERT-2025-00188",
+    instrumentId: "LM-INST-2026-00128",
+    instrumentName: "High Precision Balance 500g",
+    instrumentType: "Measuring Instrument",
+    manufacturer: "Sartorius",
+    model: "Entris II",
+    serialNumber: "SAR-67120-25",
+    capacity: "500 g (e = 0.001g)",
+    accuracyClass: "Class I (Special)",
+    businessName: "Shree Balaji Weighing Solutions",
+    location: "Jamshedpur Metallurgy Lab",
+    verificationDate: "2025-05-12",
+    validUntil: "2026-05-11",
+    verifiedBy: "P. R. Murthy (LMO-JH-07)",
+    verificationCentre: "GATC Jamshedpur Testing Centre",
+    status: "VERIFIED & ACTIVE",
+    sealHash: "4491bc8201faef891230cd882103e9182ab39801fa091234",
+    securityHash: "DOCA-LM-SHA256-77821092",
+    qrPayload: "https://legalmetrix.gov.in/verify?cert=LM-CERT-2025-00188",
+    isDemo: true
+  }
+];
+
+export const AVAILABLE_OFFICERS = [
+  {
+    id: "LMO-JH-01",
+    name: "A. Kumar",
+    role: "Legal Metrology Officer (LMO)",
+    jurisdiction: "Dhanbad",
+    district: "Dhanbad, Jharkhand",
+    distanceKm: 8.4,
+    currentWorkload: 6,
+    availability: "Available",
+    matchScore: 98,
+    activeInspectionsToday: 2,
+    phone: "+91 94311 00214",
+    email: "a.kumar.lmo@doca.gov.in"
+  },
+  {
+    id: "LMO-DL-04",
+    name: "Rajesh Kumar",
+    role: "Legal Metrology Officer (LMO)",
+    jurisdiction: "Central Delhi",
+    district: "Connaught Place, New Delhi",
+    distanceKm: 1.2,
+    currentWorkload: 4,
+    availability: "Available",
+    matchScore: 96,
+    activeInspectionsToday: 3,
+    phone: "+91 98110 44219",
+    email: "rajesh.kumar.lmo@doca.gov.in"
+  },
+  {
+    id: "LMO-JH-03",
+    name: "B. N. Sahay",
+    role: "Legal Metrology Officer (LMO)",
+    jurisdiction: "Ranchi",
+    district: "Ranchi Urban, Jharkhand",
+    distanceKm: 14.2,
+    currentWorkload: 9,
+    availability: "Moderate",
+    matchScore: 84,
+    activeInspectionsToday: 4,
+    phone: "+91 94313 88102",
+    email: "bn.sahay.lmo@doca.gov.in"
+  },
+  {
+    id: "LMO-MH-02",
+    name: "Sunita Sharma",
+    role: "Legal Metrology Officer (LMO)",
+    jurisdiction: "Mumbai Suburban",
+    district: "Andheri West, Mumbai",
+    distanceKm: 3.5,
+    currentWorkload: 5,
+    availability: "Available",
+    matchScore: 94,
+    activeInspectionsToday: 2,
+    phone: "+91 98200 11984",
+    email: "sunita.sharma.lmo@doca.gov.in"
+  },
+  {
+    id: "GATC-JH-01",
+    name: "Dhanbad GATC Regional Calibration Lab",
+    role: "Government Approved Test Centre (GATC)",
+    jurisdiction: "Coalfield Belt / Dhanbad",
+    district: "Bank More, Dhanbad",
+    distanceKm: 5.1,
+    currentWorkload: 8,
+    availability: "Available",
+    matchScore: 92,
+    activeInspectionsToday: 6,
+    phone: "+91 326 2309112",
+    email: "gatc.dhanbad@doca.gov.in"
+  }
+];
+
+export const REGIONAL_DATA = [
+  { region: "Jharkhand", registered: 4280, active: 4110, pending: 142, lmos: 28, complianceRate: 96.0 },
+  { region: "Bihar", registered: 6150, active: 5820, pending: 280, lmos: 42, complianceRate: 94.6 },
+  { region: "West Bengal", registered: 9420, active: 9010, pending: 360, lmos: 65, complianceRate: 95.6 },
+  { region: "Odisha", registered: 5210, active: 4990, pending: 190, lmos: 36, complianceRate: 95.8 }
+];
+
+export const INITIAL_AUDIT_LOGS = [
+  {
+    id: "AUD-1001",
+    time: "10:42 AM",
+    date: "2026-02-18",
+    event: "Application Submitted",
+    actor: "Business User (Shree Balaji)",
+    referenceId: "LM-APP-2026-00421",
+    details: "Re-verification request for Electronic Bench Scale (300kg) filed with fee ₹1,000.",
+    type: "business"
+  },
+  {
+    id: "AUD-1002",
+    time: "11:05 AM",
+    date: "2026-02-18",
+    event: "Documents Validated",
+    actor: "Admin (DoCA Verification Cell)",
+    referenceId: "LM-APP-2026-00421",
+    details: "Model approval and previous certificate verified against National Metrology database.",
+    type: "admin"
+  },
+  {
+    id: "AUD-1003",
+    time: "11:24 AM",
+    date: "2026-02-19",
+    event: "LMO Assigned via Smart Scheduler",
+    actor: "Admin / System Engine",
+    referenceId: "LM-APP-2026-00421",
+    details: "Assigned to Rajesh Kumar (LMO-DL-04) based on 1.2km proximity and workload balancing.",
+    type: "scheduling"
+  },
+  {
+    id: "AUD-1004",
+    time: "02:15 PM",
+    date: "2026-02-14",
+    event: "Field Inspection Completed",
+    actor: "LMO (A. Kumar)",
+    referenceId: "LM-APP-2026-00420",
+    details: "On-site linearity, zero-error, and lead seal verification passed within Class III MPE limits.",
+    type: "lmo"
+  },
+  {
+    id: "AUD-1005",
+    time: "02:22 PM",
+    date: "2026-02-14",
+    event: "Digital Certificate Issued",
+    actor: "LegalMetrix System Engine",
+    referenceId: "LM-CERT-2026-00123",
+    details: "Cryptographic SHA-256 seal generated. QR certificate published to public ledger.",
+    type: "system"
+  }
+];
+
+export const INITIAL_NOTIFICATIONS = [
+  {
+    id: "NOTIF-1",
+    title: "Inspection Scheduled",
+    message: "Inspection scheduled for LM-APP-2026-00421 on 21 Feb 2026 at 10:30 AM.",
+    timestamp: "10 mins ago",
+    read: false,
+    priority: "high",
+    role: "business"
+  },
+  {
+    id: "NOTIF-2",
+    title: "Certificate Expiry Warning",
+    message: "Certificate LM-CERT-2025-00098 expires in 4 days. Please file re-verification.",
+    timestamp: "2 hours ago",
+    read: false,
+    priority: "high",
+    role: "business"
+  },
+  {
+    id: "NOTIF-3",
+    title: "New Field Inspection Assigned",
+    message: "Application LM-APP-2026-00421 assigned to your inspection roster.",
+    timestamp: "4 hours ago",
+    read: false,
+    priority: "medium",
+    role: "lmo"
+  },
+  {
+    id: "NOTIF-4",
+    title: "Digital Certificate Generated",
+    message: "Certificate LM-CERT-2026-00123 successfully generated for Eastern Industrial Weighing.",
+    timestamp: "1 day ago",
+    read: true,
+    priority: "low",
+    role: "admin"
+  }
+];
