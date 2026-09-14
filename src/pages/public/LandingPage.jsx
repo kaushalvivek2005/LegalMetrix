@@ -20,7 +20,7 @@ import { LifecyclePipelineBar } from '../../components/Timeline.jsx';
 export default function LandingPage() {
   const navigate = useNavigate();
   const { setRole, certificates } = useApp();
-  const [searchCert, setSearchCert] = useState('LM-CERT-2026-00123');
+  const [searchCert, setSearchCert] = useState('LM-CERT-2026-001');
 
   const handleVerify = (e) => {
     e.preventDefault();
@@ -172,18 +172,20 @@ export default function LandingPage() {
             </button>
           </form>
 
-          <div className="flex items-center justify-center gap-2 pt-2 text-xs text-slate-500">
-            <span>Try sample certificates:</span>
-            {certificates.slice(0, 2).map((c) => (
-              <button
-                key={c.certificateNumber}
-                onClick={() => setSearchCert(c.certificateNumber)}
-                className="underline font-mono text-blue-700 hover:text-blue-900 cursor-pointer"
-              >
-                {c.certificateNumber}
-              </button>
-            ))}
-          </div>
+          {certificates.length > 0 && (
+            <div className="flex items-center justify-center gap-2 pt-2 text-xs text-slate-500">
+              <span>Try sample certificates:</span>
+              {certificates.slice(0, 2).map((c) => (
+                <button
+                  key={c.certificateNumber}
+                  onClick={() => setSearchCert(c.certificateNumber)}
+                  className="underline font-mono text-blue-700 hover:text-blue-900 cursor-pointer"
+                >
+                  {c.certificateNumber}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

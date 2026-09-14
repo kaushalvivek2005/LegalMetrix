@@ -19,11 +19,13 @@ export default function AuditLogs() {
   const [filterAction, setFilterAction] = useState('All');
 
   const filtered = auditLogs.filter((log) => {
+    const searchLower = searchTerm.toLowerCase();
     const matchSearch =
-      log.event.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      log.actor.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      log.target.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      log.hash.toLowerCase().includes(searchTerm.toLowerCase());
+      (log.event || '').toLowerCase().includes(searchLower) ||
+      (log.actor || '').toLowerCase().includes(searchLower) ||
+      (log.target || log.referenceId || '').toLowerCase().includes(searchLower) ||
+      (log.hash || '').toLowerCase().includes(searchLower) ||
+      (log.details || '').toLowerCase().includes(searchLower);
 
     const matchAction = filterAction === 'All' || log.action === filterAction;
     return matchSearch && matchAction;
@@ -36,16 +38,16 @@ export default function AuditLogs() {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-xs font-semibold mb-2">
             <History className="w-4 h-4 text-blue-600" />
-            Immutable Verification Ledger
+            LegalMetrix Audit Trail Ledger
           </div>
           <h1 className="text-2xl font-bold text-slate-900">National System Audit Logs</h1>
           <p className="text-xs sm:text-sm text-slate-500">
-            Chronological, tamper-proof record of every statutory registration, LMO assignment, field audit, and certificate signature.
+            Chronological audit trail of statutory registrations, LMO assignments, field inspections, and certificate records.
           </p>
         </div>
 
         <button
-          onClick={() => alert('Exporting full audit trail to encrypted CSV format.')}
+          onClick={() => alert('Exporting demonstration audit trail to CSV format.')}
           className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer self-start sm:self-auto"
         >
           <Download className="w-4 h-4" />
@@ -97,30 +99,38 @@ export default function AuditLogs() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 font-mono">
-              {filtered.map((log) => (
-                <tr key={log.id} className="hover:bg-slate-50/70 transition-colors">
-                  <td className="py-3 text-slate-500 whitespace-nowrap">
-                    {log.timestamp}
-                  </td>
-                  <td className="py-3 font-sans font-semibold text-slate-900">
-                    {log.event}
-                  </td>
-                  <td className="py-3">
-                    <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-800 text-[10px] font-bold">
-                      {log.action}
-                    </span>
-                  </td>
-                  <td className="py-3 text-slate-700 font-medium">
-                    {log.target}
-                  </td>
-                  <td className="py-3 text-slate-600 font-sans">
-                    {log.actor}
-                  </td>
-                  <td className="py-3 text-slate-500 text-[10px] truncate max-w-[140px]" title={log.hash}>
-                    {log.hash}
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="py-8 text-center text-xs font-sans text-slate-500">
+                    No audit records match the current filters.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filtered.map((log) => (
+                  <tr key={log.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3 text-slate-500 whitespace-nowrap">
+                      {log.timestamp || `${log.date || '2026-09-15'} ${log.time || ''}`}
+                    </td>
+                    <td className="py-3 font-sans font-semibold text-slate-900">
+                      {log.event}
+                    </td>
+                    <td className="py-3">
+                      <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-800 text-[10px] font-bold">
+                        {log.action || 'VERIFICATION_LOG'}
+                      </span>
+                    </td>
+                    <td className="py-3 text-slate-700 font-medium">
+                      {log.target || log.referenceId || 'N/A'}
+                    </td>
+                    <td className="py-3 text-slate-600 font-sans">
+                      {log.actor}
+                    </td>
+                    <td className="py-3 text-slate-500 text-[10px] truncate max-w-[140px]" title={log.hash || 'DOCA-SHA256'}>
+                      {log.hash || 'DOCA-SHA256-VALIDATED'}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

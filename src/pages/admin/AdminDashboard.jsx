@@ -93,32 +93,31 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Registered Instruments"
-          value="1,48,290"
-          subtitle="+8.4% YoY National Growth"
+          value={instruments.length}
+          subtitle="Demo Controlled Dataset"
           icon={Scale}
           variant="primary"
         />
         <StatCard
           title="Active Stamping Certs"
-          value="1,34,510"
-          subtitle="92.1% Compliance Rate"
+          value={certificates.length}
+          subtitle="Cryptographically sealed"
           icon={Award}
           variant="success"
         />
         <StatCard
           title="In Verification Pipeline"
-          value={applications.length}
-          subtitle="Live queue across zones"
+          value={applications.filter((a) => a.status !== 'Approved' && a.status !== 'VERIFIED').length}
+          subtitle="Active inspection queue"
           icon={Compass}
           variant="warning"
         />
         <StatCard
-          title="Enforcement Flags"
-          value="24"
-          subtitle="Non-compliant / Seal break"
-          icon={AlertTriangle}
-          variant="error"
-          alert={true}
+          title="Verification Compliance"
+          value={`${Math.round((certificates.length / Math.max(instruments.length, 1)) * 100)}%`}
+          subtitle="Statutory verification rate"
+          icon={ShieldCheck}
+          variant="primary"
         />
       </div>
 
@@ -230,42 +229,50 @@ export default function AdminDashboard() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {applications.slice(0, 6).map((app) => (
-                <tr key={app.id} className="hover:bg-slate-50/70 transition-colors">
-                  <td className="py-3 font-mono font-semibold text-slate-900">
-                    {app.id}
-                  </td>
-                  <td className="py-3 font-medium text-slate-900">
-                    {app.instrumentName}
-                  </td>
-                  <td className="py-3 text-slate-600">
-                    {app.businessName}
-                  </td>
-                  <td className="py-3 text-slate-600">
-                    {app.jurisdiction}
-                  </td>
-                  <td className="py-3">
-                    <StatusBadge status={app.status} size="sm" />
-                  </td>
-                  <td className="py-3 font-medium">
-                    {app.assignedOfficer && app.assignedOfficer !== 'Unassigned' ? (
-                      <span className="text-slate-800">{app.assignedOfficer}</span>
-                    ) : (
-                      <span className="text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-medium">
-                        Unassigned
-                      </span>
-                    )}
-                  </td>
-                  <td className="py-3 text-right space-x-1">
-                    <button
-                      onClick={() => navigate(`/admin/scheduling?appId=${app.id}`)}
-                      className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-[#00162c] hover:text-white text-slate-700 text-[11px] font-semibold transition-all cursor-pointer"
-                    >
-                      Assign LMO
-                    </button>
+              {applications.length === 0 ? (
+                <tr>
+                  <td colSpan="7" className="py-8 text-center text-xs text-slate-500">
+                    No applications found in the national queue.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                applications.slice(0, 6).map((app) => (
+                  <tr key={app.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3 font-mono font-semibold text-slate-900">
+                      {app.id}
+                    </td>
+                    <td className="py-3 font-medium text-slate-900">
+                      {app.instrumentName}
+                    </td>
+                    <td className="py-3 text-slate-600">
+                      {app.businessName}
+                    </td>
+                    <td className="py-3 text-slate-600">
+                      {app.jurisdiction}
+                    </td>
+                    <td className="py-3">
+                      <StatusBadge status={app.status} size="sm" />
+                    </td>
+                    <td className="py-3 font-medium">
+                      {app.assignedOfficer && app.assignedOfficer !== 'Unassigned' ? (
+                        <span className="text-slate-800">{app.assignedOfficer}</span>
+                      ) : (
+                        <span className="text-amber-700 bg-amber-50 px-2 py-0.5 rounded font-medium">
+                          Unassigned
+                        </span>
+                      )}
+                    </td>
+                    <td className="py-3 text-right space-x-1">
+                      <button
+                        onClick={() => navigate(`/admin/scheduling?appId=${app.id}`)}
+                        className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-[#00162c] hover:text-white text-slate-700 text-[11px] font-semibold transition-all cursor-pointer"
+                      >
+                        Assign LMO
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

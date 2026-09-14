@@ -59,36 +59,44 @@ export default function NationalInstruments() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {filtered.map((inst) => (
-                <tr key={inst.id} className="hover:bg-slate-50/70 transition-colors">
-                  <td className="py-3 font-mono font-bold text-blue-900">
-                    {inst.id}
-                  </td>
-                  <td className="py-3">
-                    <p className="font-semibold text-slate-900">{inst.name}</p>
-                    <p className="text-[10px] text-slate-400">{inst.manufacturer} • {inst.model}</p>
-                  </td>
-                  <td className="py-3 text-slate-600">{inst.type}</td>
-                  <td className="py-3 font-medium text-slate-800">{inst.capacity}</td>
-                  <td className="py-3 text-slate-600">{inst.businessName}</td>
-                  <td className="py-3 text-slate-500">{inst.location}</td>
-                  <td className="py-3">
-                    <StatusBadge status={inst.status} size="sm" />
-                  </td>
-                  <td className="py-3 text-right">
-                    {inst.previousCertificateNumber ? (
-                      <Link
-                        to={`/certificates/${inst.previousCertificateNumber}`}
-                        className="font-mono text-blue-700 hover:underline font-semibold text-[11px]"
-                      >
-                        {inst.previousCertificateNumber}
-                      </Link>
-                    ) : (
-                      <span className="text-slate-400 text-[11px]">N/A</span>
-                    )}
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan="8" className="py-8 text-center text-xs text-slate-500">
+                    No instruments registered in the national registry.
                   </td>
                 </tr>
-              ))}
+              ) : (
+                filtered.map((inst) => (
+                  <tr key={inst.id} className="hover:bg-slate-50/70 transition-colors">
+                    <td className="py-3 font-mono font-bold text-blue-900">
+                      {inst.id}
+                    </td>
+                    <td className="py-3">
+                      <p className="font-semibold text-slate-900">{inst.name}</p>
+                      <p className="text-[10px] text-slate-400">{inst.manufacturer} • {inst.model}</p>
+                    </td>
+                    <td className="py-3 text-slate-600">{inst.type}</td>
+                    <td className="py-3 font-medium text-slate-800">{inst.capacity}</td>
+                    <td className="py-3 text-slate-600">{inst.businessName}</td>
+                    <td className="py-3 text-slate-500">{inst.location}</td>
+                    <td className="py-3">
+                      <StatusBadge status={inst.status} size="sm" />
+                    </td>
+                    <td className="py-3 text-right">
+                      {inst.certificateId || inst.previousCertificateNumber ? (
+                        <Link
+                          to={`/certificates/${inst.certificateId || inst.previousCertificateNumber}`}
+                          className="font-mono text-blue-700 hover:underline font-semibold text-[11px]"
+                        >
+                          {inst.certificateId || inst.previousCertificateNumber}
+                        </Link>
+                      ) : (
+                        <span className="text-slate-400 text-[11px]">Pending</span>
+                      )}
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

@@ -61,6 +61,7 @@ export default function ApplicationWorkflow() {
   };
 
   const handleSubmit = async () => {
+    if (!activeInstrument) return;
     setIsSubmitting(true);
     const newApp = await submitApplication({
       instrumentId: activeInstrument.id,
@@ -68,8 +69,8 @@ export default function ApplicationWorkflow() {
       instrumentType: activeInstrument.type,
       verificationType,
       businessName: activeInstrument.businessName,
-      jurisdiction: activeInstrument.location.includes('Delhi') ? 'Central Delhi' : 'Dhanbad / Jharkhand',
-      location: activeInstrument.location,
+      jurisdiction: (activeInstrument.location || '').includes('Delhi') ? 'Central Delhi' : 'Dhanbad / Jharkhand',
+      location: activeInstrument.location || 'Premises',
       feeAmount: feeMap[verificationType] || 1000,
       feeStatus: 'Paid (Govt Portal)'
     });
@@ -137,30 +138,38 @@ export default function ApplicationWorkflow() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-96 overflow-y-auto pr-1">
-              {instruments.map((inst) => {
-                const isSelected = selectedInstId === inst.id;
-                return (
-                  <div
-                    key={inst.id}
-                    onClick={() => setSelectedInstId(inst.id)}
-                    className={`p-4 rounded-xl border text-left cursor-pointer transition-all ${
-                      isSelected
-                        ? 'border-[#00162c] ring-2 ring-[#00162c]/20 bg-blue-50/30'
-                        : 'border-slate-200 hover:border-slate-300 bg-white'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="font-mono text-xs font-bold text-blue-900 bg-blue-50 px-2 py-0.5 rounded">
-                        {inst.id}
-                      </span>
-                      <span className="text-[11px] font-semibold text-slate-500">{inst.type}</span>
+              {instruments.length === 0 ? (
+                <div className="col-span-full p-8 text-center rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-500 space-y-2">
+                  <Scale className="w-8 h-8 text-slate-300 mx-auto" />
+                  <p className="font-semibold text-slate-700">No instruments currently registered</p>
+                  <p className="text-[11px] text-slate-400">Register an instrument first to submit a statutory verification application.</p>
+                </div>
+              ) : (
+                instruments.map((inst) => {
+                  const isSelected = selectedInstId === inst.id;
+                  return (
+                    <div
+                      key={inst.id}
+                      onClick={() => setSelectedInstId(inst.id)}
+                      className={`p-4 rounded-xl border text-left cursor-pointer transition-all ${
+                        isSelected
+                          ? 'border-[#00162c] ring-2 ring-[#00162c]/20 bg-blue-50/30'
+                          : 'border-slate-200 hover:border-slate-300 bg-white'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="font-mono text-xs font-bold text-blue-900 bg-blue-50 px-2 py-0.5 rounded">
+                          {inst.id}
+                        </span>
+                        <span className="text-[11px] font-semibold text-slate-500">{inst.type}</span>
+                      </div>
+                      <h3 className="text-xs font-bold text-slate-900">{inst.name}</h3>
+                      <p className="text-[11px] text-slate-500 mt-1">Capacity: {inst.capacity}</p>
+                      <p className="text-[11px] text-slate-500 truncate">{inst.location}</p>
                     </div>
-                    <h3 className="text-xs font-bold text-slate-900">{inst.name}</h3>
-                    <p className="text-[11px] text-slate-500 mt-1">Capacity: {inst.capacity}</p>
-                    <p className="text-[11px] text-slate-500 truncate">{inst.location}</p>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
 
             <div className="flex justify-end pt-4 border-t border-slate-100">

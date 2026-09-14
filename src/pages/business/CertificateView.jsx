@@ -29,8 +29,30 @@ export default function CertificateView() {
   };
 
   const handleDownloadPDF = () => {
-    alert(`Downloading statutory digital certificate: ${certificate.certificateNumber}.pdf`);
+    if (certificate) {
+      alert(`Downloading statutory digital certificate: ${certificate.certificateNumber}.pdf`);
+    }
   };
+
+  if (!certificate) {
+    return (
+      <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-200">
+        <div className="p-12 text-center rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3">
+          <Award className="w-10 h-10 text-slate-300 mx-auto" />
+          <h2 className="text-lg font-bold text-slate-800">Certificate Not Found</h2>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            No certificate record matches ID <span className="font-mono">{certId}</span>.
+          </p>
+          <button
+            onClick={() => navigate('/business/certificates')}
+            className="px-4 py-2 rounded-xl bg-[#00162c] text-white text-xs font-semibold hover:bg-slate-800 transition-all cursor-pointer shadow-xs"
+          >
+            Back to Certificates Ledger
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6 animate-in fade-in duration-200">
@@ -79,6 +101,16 @@ export default function CertificateView() {
         {/* Subtle Watermark */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03]">
           <Scale className="w-96 h-96 text-slate-900" />
+        </div>
+
+        {/* Demo Verification Banner */}
+        <div className="mb-4 p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-center relative z-10">
+          <span className="text-xs font-bold text-amber-800 uppercase tracking-wider block">
+            VALID DEMO CERTIFICATE
+          </span>
+          <p className="text-[11px] font-semibold text-amber-900 mt-0.5">
+            DEMO CERTIFICATE – NOT AN OFFICIAL GOVERNMENT CERTIFICATE
+          </p>
         </div>
 
         {/* Header: Emblem & National Authority */}
@@ -187,28 +219,28 @@ export default function CertificateView() {
             </div>
           </div>
 
-          {/* Cryptographic Seal */}
+          {/* Digital Seal Signature */}
           <div className="md:col-span-2 p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1">
                 <ShieldCheck className="w-3.5 h-3.5 text-blue-700" />
-                Cryptographic Integrity Signature
+                Demonstration Digital Seal
               </span>
-              <span className="text-[10px] font-mono text-slate-500">SHA-256 Validated</span>
+              <span className="text-[10px] font-mono text-slate-500">SHA-256 Audit Seal</span>
             </div>
             <p className="font-mono text-[10px] text-slate-600 break-all leading-tight">
               Hash: {certificate.sealHash || '8f9b2c34a110e58c9921f37e411b0294da18b4566f1e847c134aa896177209'}
             </p>
             <div className="flex items-center justify-between pt-1 text-[10px] text-slate-500">
-              <span>Issuer Key: DoCA-PUB-DEL-2026-X9</span>
+              <span>Issuer Key: DoCA-DEMO-DEL-2026-X9</span>
               <span>Timestamp: {certificate.verificationDate} 11:24:08 UTC</span>
             </div>
           </div>
         </div>
 
-        {/* Statutory Legal Notice */}
+        {/* Statutory Legal Notice & Demo Disclaimer */}
         <div className="mt-6 pt-4 border-t border-slate-100 text-center text-[10px] text-slate-500">
-          Official Digital Verification Certificate issued under the Legal Metrology Act, 2009. Tampering, alteration or unauthorized duplication is a punishable statutory offence under Section 30 of the Act.
+          Demo verification record – not an official government certificate. Generated for demonstration purposes within the LegalMetrix digital verification prototype.
         </div>
       </div>
     </div>

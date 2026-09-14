@@ -26,9 +26,9 @@ export default function SmartScheduling() {
     queryAppId || applications.find((a) => !a.assignedOfficer || a.assignedOfficer === 'Unassigned')?.id || applications[0]?.id
   );
 
-  const [selectedOfficerId, setSelectedOfficerId] = useState('lmo-1');
-  const [scheduledDate, setScheduledDate] = useState('2026-02-16');
-  const [scheduledTime, setScheduledTime] = useState('11:00 AM');
+  const [selectedOfficerId, setSelectedOfficerId] = useState('lmo-jhk-018');
+  const [scheduledDate, setScheduledDate] = useState('2026-09-15');
+  const [scheduledTime, setScheduledTime] = useState('11:30 AM');
   const [assignmentSuccess, setAssignmentSuccess] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -61,6 +61,7 @@ export default function SmartScheduling() {
   const bestOfficer = scoredOfficers[0];
 
   const handleAutoAssign = async () => {
+    if (!selectedApp || !bestOfficer) return;
     setIsProcessing(true);
     await assignOfficerToApplication(
       selectedApp.id,
@@ -73,7 +74,9 @@ export default function SmartScheduling() {
   };
 
   const handleManualAssign = async () => {
+    if (!selectedApp) return;
     const chosen = officers.find((o) => o.id === selectedOfficerId) || bestOfficer;
+    if (!chosen) return;
     setIsProcessing(true);
     await assignOfficerToApplication(
       selectedApp.id,
@@ -104,7 +107,7 @@ export default function SmartScheduling() {
 
         <button
           onClick={handleAutoAssign}
-          disabled={isProcessing}
+          disabled={isProcessing || !selectedApp}
           className="px-5 py-2.5 rounded-xl bg-[#2f6388] text-white text-xs sm:text-sm font-semibold hover:bg-[#255273] transition-all flex items-center gap-2 shadow-md cursor-pointer self-start sm:self-auto disabled:opacity-50"
         >
           <Zap className="w-4 h-4 text-amber-300" />
@@ -112,8 +115,17 @@ export default function SmartScheduling() {
         </button>
       </div>
 
-      {/* Main Grid: Left Applications Queue, Right Matchmaker */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      {applications.length === 0 ? (
+        <div className="p-12 text-center rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-3">
+          <Sparkles className="w-10 h-10 text-slate-300 mx-auto" />
+          <h3 className="text-base font-bold text-slate-800">No Applications for Scheduling</h3>
+          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+            When businesses submit verification applications, the smart dispatch engine will analyze jurisdiction, officer workload, and proximity to suggest allocations.
+          </p>
+        </div>
+      ) : (
+        /* Main Grid: Left Applications Queue, Right Matchmaker */
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left: Pending / Unassigned Queue */}
         <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-slate-100">
@@ -314,6 +326,7 @@ export default function SmartScheduling() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Success Modal Showing "Assigned successfully" */}
       {assignmentSuccess && (

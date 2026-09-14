@@ -24,15 +24,17 @@ export default function ApplicationTracking() {
   const { applications } = useApp();
 
   const [selectedAppId, setSelectedAppId] = useState(
-    highlightId || applications[0]?.id || 'LM-APP-2026-00421'
+    highlightId || applications[0]?.id || ''
   );
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     if (highlightId) {
       setSelectedAppId(highlightId);
+    } else if (!selectedAppId && applications.length > 0) {
+      setSelectedAppId(applications[0].id);
     }
-  }, [highlightId]);
+  }, [highlightId, applications, selectedAppId]);
 
   const selectedApp = applications.find((a) => a.id === selectedAppId) || applications[0];
 
@@ -80,37 +82,43 @@ export default function ApplicationTracking() {
           </div>
 
           <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
-            {filteredApps.map((app) => {
-              const isSelected = app.id === selectedApp?.id;
-              return (
-                <div
-                  key={app.id}
-                  onClick={() => setSelectedAppId(app.id)}
-                  className={`p-3.5 rounded-xl border text-left cursor-pointer transition-all ${
-                    isSelected
-                      ? 'border-[#00162c] bg-blue-50/50 shadow-xs'
-                      : 'border-slate-200/80 hover:border-slate-300 hover:bg-slate-50/50'
-                  }`}
-                >
-                  <div className="flex items-center justify-between gap-1 mb-1">
-                    <span className="font-mono text-xs font-bold text-slate-900">{app.id}</span>
-                    <StatusBadge status={app.status} size="sm" />
+            {filteredApps.length === 0 ? (
+              <div className="p-6 text-center text-xs text-slate-500">
+                No applications found.
+              </div>
+            ) : (
+              filteredApps.map((app) => {
+                const isSelected = app.id === selectedApp?.id;
+                return (
+                  <div
+                    key={app.id}
+                    onClick={() => setSelectedAppId(app.id)}
+                    className={`p-3.5 rounded-xl border text-left cursor-pointer transition-all ${
+                      isSelected
+                        ? 'border-[#00162c] bg-blue-50/50 shadow-xs'
+                        : 'border-slate-200/80 hover:border-slate-300 hover:bg-slate-50/50'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-1 mb-1">
+                      <span className="font-mono text-xs font-bold text-slate-900">{app.id}</span>
+                      <StatusBadge status={app.status} size="sm" />
+                    </div>
+                    <h4 className="text-xs font-semibold text-slate-800 line-clamp-1">
+                      {app.instrumentName}
+                    </h4>
+                    <div className="flex items-center justify-between text-[11px] text-slate-500 mt-2">
+                      <span>{app.verificationType}</span>
+                      <span>{app.submittedDate}</span>
+                    </div>
                   </div>
-                  <h4 className="text-xs font-semibold text-slate-800 line-clamp-1">
-                    {app.instrumentName}
-                  </h4>
-                  <div className="flex items-center justify-between text-[11px] text-slate-500 mt-2">
-                    <span>{app.verificationType}</span>
-                    <span>{app.submittedDate}</span>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })
+            )}
           </div>
         </div>
 
         {/* Right: Detailed Tracking View with Large Visual Timeline */}
-        {selectedApp && (
+        {selectedApp ? (
           <div className="lg:col-span-2 space-y-6">
             <div className="p-6 sm:p-8 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-6">
               {/* Application Top Summary Banner */}
@@ -202,6 +210,20 @@ export default function ApplicationTracking() {
                 </div>
               </div>
             </div>
+          </div>
+        ) : (
+          <div className="lg:col-span-2 p-12 text-center rounded-2xl bg-white border border-slate-200/80 shadow-xs flex flex-col items-center justify-center space-y-3">
+            <Clock className="w-10 h-10 text-slate-300" />
+            <h3 className="text-base font-bold text-slate-700">No Application Selected</h3>
+            <p className="text-xs text-slate-500 max-w-sm">
+              Select an application from the list or submit a new verification application to track its statutory progress.
+            </p>
+            <button
+              onClick={() => navigate('/business/applications/new')}
+              className="mt-2 px-4 py-2 rounded-xl bg-[#00162c] text-white text-xs font-semibold hover:bg-slate-800 transition-all cursor-pointer shadow-xs"
+            >
+              Submit Verification Application
+            </button>
           </div>
         )}
       </div>

@@ -92,16 +92,24 @@ export const api = {
   // Certificates
   async generateCertificate(certData) {
     await delay(150);
-    const certNumber = `LM-CERT-2026-${String(Math.floor(Math.random() * 90000) + 10000).substring(0, 5)}`;
-    const now = new Date();
-    const oneYearLater = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000);
-    
+    const isInst2 = certData.instrumentId === 'LM-WM-2026-002' || certData.id === 'APP-2026-002';
+    const certNumber = isInst2
+      ? 'LM-CERT-2026-002'
+      : `LM-CERT-2026-${String(Math.floor(Math.random() * 90000) + 10000).substring(0, 5)}`;
+    const verificationDate = isInst2 ? '2026-09-15' : new Date().toISOString().split('T')[0];
+    const validUntil = isInst2 ? '2027-09-14' : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
     const newCert = {
       certificateNumber: certNumber,
-      verificationDate: now.toISOString().split('T')[0],
-      validUntil: oneYearLater.toISOString().split('T')[0],
-      status: "VERIFIED & ACTIVE",
-      sealHash: Array.from({length: 40}, () => Math.floor(Math.random()*16).toString(16)).join(''),
+      verificationDate: verificationDate,
+      validUntil: validUntil,
+      status: "ACTIVE",
+      result: "PASS",
+      verifiedBy: isInst2 ? 'Priya Singh (LMO-JHK-018)' : (certData.verifiedBy || "Priya Singh (LMO-JHK-018)"),
+      verificationCentre: isInst2
+        ? "Jharkhand State Legal Metrology Division • Dhanbad District Desk"
+        : (certData.verificationCentre || "Jharkhand State Legal Metrology Division"),
+      sealHash: isInst2 ? '9c2f88b4a20e43df9811b742aa0984c17231bcde' : Array.from({length: 40}, () => Math.floor(Math.random()*16).toString(16)).join(''),
       securityHash: `DOCA-LM-SHA256-${Math.floor(10000000 + Math.random() * 90000000)}`,
       qrPayload: `https://legalmetrix.gov.in/verify?cert=${certNumber}`,
       isDemo: true,
@@ -114,9 +122,10 @@ export const api = {
   async verifyCertificate(certificateNumber, certificatesList = INITIAL_CERTIFICATES) {
     await delay(200);
     const cleanId = (certificateNumber || '').trim().toUpperCase();
-    const found = certificatesList.find(c => 
-      c.certificateNumber.toUpperCase() === cleanId || 
-      c.instrumentId.toUpperCase() === cleanId
+    if (!cleanId) return null;
+    const found = (certificatesList || []).find(c => 
+      (c.certificateNumber && c.certificateNumber.toUpperCase() === cleanId) || 
+      (c.instrumentId && c.instrumentId.toUpperCase() === cleanId)
     );
     return found || null;
   },
